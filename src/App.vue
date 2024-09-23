@@ -1,15 +1,13 @@
 <template>
   <v-app>
-    <router-view v-slot="{ Component }">
-        <component :is="Component" />
-    </router-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
 export default{
   mounted(){
-    this.$router.push('/login')
+    this.$router.push('/home')
   }
 }
 </script>
