@@ -2,6 +2,7 @@
     <Header />
     <v-main>
         <v-sheet color="primary" :style="{ borderRadius: '10px 10px 0px 0px', height: '100%', width: '100%' }">
+            <router-view></router-view>
         </v-sheet>
         <Footer />
     </v-main>

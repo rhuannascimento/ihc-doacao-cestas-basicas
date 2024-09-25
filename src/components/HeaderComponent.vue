@@ -8,7 +8,13 @@
                     :style="{ lineHeight: '20px', fontSize: '12pt', fontWeight: '600' }">Easy Donation</span>
             </div>
         </template>
-        <div class="px-4">
+        <div class="d-flex align-center ga-2 px-4">
+            <v-btn v-if="role == 'admin'" @click="this.$router.push('create-family')" :style="{backgroundColor: '#F2E8C6'}" elevation="1" size="small" max-width="1px">
+                <div :style="{position: 'relative'}">
+                    <v-icon size="25" color="background">mdi mdi-human-male-male-child</v-icon>
+                    <v-icon size="10" color="background" :style="{position: 'absolute', right: '-2px', bottom: '0px', backgroundColor: '#F2E8C6', borderRadius: '50%'}">mdi mdi-plus</v-icon>
+                </div>
+            </v-btn>
             <v-img :width="40" cover class="cursor-pointer" :style="{ borderRadius: '50%', boxShadow: '1px 1px 1px #000' }"
                 src="https://raw.githubusercontent.com/rhuannascimento/ihc-doacao-cestas-basicas/refs/heads/main/src/assets/images/eu_mesmo_lindao.jpg">
                 <v-menu activator="parent">
@@ -26,8 +32,17 @@
 <script>
 export default {
     name: 'Header',
+    data(){
+        return{
+            role: null
+        }
+    },
+    beforeMount(){
+        this.role = localStorage.getItem('role');
+    },
     methods: {
         logOut(){
+            localStorage.clear();
             this.$router.push('/login')
         }
     }

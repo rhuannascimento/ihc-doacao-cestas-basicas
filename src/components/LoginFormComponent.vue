@@ -95,7 +95,11 @@ export default {
                 this.loginAdvertisementColor = "warning";
             }
             
-            this.$router.push('/home'); 
+            if(localStorage.getItem('role')){
+                this.$router.push('/family'); 
+            }else{
+                this.$router.push('/home'); 
+            }
         }
     }
 }

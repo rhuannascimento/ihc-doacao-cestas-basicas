@@ -1,10 +1,10 @@
 <template>
-    <div class="d-flex justify-center" :style="{ position: 'fixed', bottom: '0', width: '100%' }">
+    <div v-if="!hideFooterOn.includes(this.$route.path)" class="d-flex justify-center" :style="{ position: 'fixed', bottom: '0', width: '100%' }">
         <v-card :style="{ borderRadius: '10px 10px 0px 0px' }" width="95%" height="60px" class="pa-4" color="secondary">
-            <div class="d-flex justify-center ga-2">
+            <div class="d-flex justify-center ga-1">
                 <div v-for="(option, index) in options" :key="index" class="d-flex ga-2">
                     <v-btn :color="this.path == option.path ? 'background':'fadedbackground'" @click="goToPath(option.path)" variant="text" >
-                        <div class="d-flex ga-2">
+                        <div class="d-flex ga-1">
                             <v-icon>{{ option.icon }}</v-icon>
                             <span>{{ option.label }}</span>
                         </div>
@@ -22,21 +22,42 @@ export default {
     data() {
         return {
             path: '',
+            hideFooterOn: ['/create-family'],
             options: [
                 {
-                    icon: 'mdi mdi-circle',
-                    label: 'Circulo',
-                    path: '/home'
+                    icon: 'mdi mdi-human-male-male-child',
+                    label: 'Famílias',
+                    path: '/family',
+                    admin: true
                 },
                 {
-                    icon: 'mdi mdi-circle',
-                    label: 'Circulo',
-                    path: '/login'
+                    icon: 'mdi mdi-basket',
+                    label: 'Cestas',
+                    path: '/basket',
+                    admin: true
+                },
+                {
+                    icon: 'mdi mdi-human-male-male-child',
+                    label: 'Famílias',
+                    path: '/family',
+                    admin: false
+                },
+                {
+                    icon: 'mdi mdi-basket',
+                    label: 'Cestas',
+                    path: '/basket',
+                    admin: false
                 }
             ]
         }
     },
     mounted(){
+        let role = localStorage.getItem('role');
+        if(role == 'admin'){
+            this.options = this.options.filter(item => item.admin);
+        }else{
+            this.options = this.options.filter(item => !item.admin);
+        }
         this.path = this.$route.path;
     },
     methods:{
