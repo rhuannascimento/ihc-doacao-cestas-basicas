@@ -1,11 +1,12 @@
 <template>
     <v-card color="primary" class="pa-4" width="285" height="fit-content">
-        <v-form @submit.prevent="tryLogin" v-model="isFormValid" class="d-flex flex-column ga-2">
-            <v-text-field v-model="username" :rules="[formRules.required]" :disabled="loginLoading" bg-color="secondary"
-                hide-details="auto" variant="solo" label="Usuário" placeholder="Usuário"></v-text-field>
+        <v-form @submit.prevent="trySingup" v-model="isFormValid" class="d-flex flex-column ga-2">
+            <v-text-field v-model="email" :rules="[formRules.required, formRules.emailRule]" :disabled="singupLoading"
+                bg-color="secondary" hide-details="auto" variant="solo" label="E-mail"
+                placeholder="E-mail"></v-text-field>
             <v-text-field v-model="password"
                 :rules="[formRules.required, formRules.minLengthRule, formRules.specialCharRule]"
-                :type="passwordFieldType" :disabled="loginLoading" bg-color="secondary" hide-details="auto"
+                :type="passwordFieldType" :disabled="singupLoading" bg-color="secondary" hide-details="auto"
                 variant="solo" label="Senha" placeholder="Senha">
                 <template v-slot:append-inner>
                     <v-btn variant="text" size="sm">
@@ -15,28 +16,36 @@
                     </v-btn>
                 </template>
             </v-text-field>
-            <v-snackbar location-strategy="connected" target="parent" :offset="25" v-model="loginAdvertisement" :timeout="4000" :color="loginAdvertisementColor"
-                close-on-content-click timer>{{ loginAdvertisementText }}</v-snackbar>
-            <v-btn :disabled="!isFormValid" :loading="loginLoading" class="mt-2" type="submit" block>Entrar</v-btn>
+            <v-snackbar location-strategy="connected" target="parent" :offset="25" v-model="singupAdvertisement"
+                :timeout="4000" :color="singupAdvertisementColor" close-on-content-click timer>{{
+                    singupAdvertisementText }}</v-snackbar>
+            <v-btn :disabled="!isFormValid" :loading="singupLoading" class="mt-2" type="submit" block>Registrar</v-btn>
         </v-form>
     </v-card>
 </template>
 
 <script>
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/plugins/firebase';
+
 export default {
     name: 'SingupForm',
     data() {
         return {
-            username: "",
+            email: "",
             password: "",
             passwordFieldType: "password",
-            loginAdvertisementText: "",
-            loginAdvertisementColor: "",
+            singupAdvertisementText: "",
+            singupAdvertisementColor: "",
             isPasswordVisible: false,
             isFormValid: false,
-            loginLoading: false,
-            loginAdvertisement: false,
+            singupLoading: false,
+            singupAdvertisement: false,
             formRules: {
+                emailRule: value => {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailPattern.test(value) || 'Email inválido';
+                },
                 required: value => !!value || "O campo é obrigatório",
                 minLengthRule: value => value.length >= 8 || 'A senha deve ter mais de 8 caracteres',
                 specialCharRule: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) || 'A senha deve conter um caractere especial',
@@ -52,19 +61,19 @@ export default {
                 this.passwordFieldType = "password";
             }
         },
-        tryLogin() {
-            this.loginLoading = true;
+        async trySingup() {
+            this.singupLoading = true;
 
-            setTimeout(() => {
-                if (this.username == "rhuannascimento" && this.password == "Rhuan%%2024") {
-                    this.$router.push('/home')
-                } else {
-                    this.loginAdvertisement = true;
-                    this.loginAdvertisementText = "Usuário e/ou senha incorretos!";
-                    this.loginAdvertisementColor = "warning";
-                }
-                this.loginLoading = false;
-            }, 2000);
+            try {
+                await createUserWithEmailAndPassword(auth, this.email, this.password);
+                this.$router.push('/login')
+            } catch (error) {
+                this.singupAdvertisement = true;
+                this.singupAdvertisementText = 'Erro ao registrar: ' + error.message;
+                this.singupAdvertisementColor = "warning";
+                this.singupLoading = false;
+            }
+
         }
     }
 }
