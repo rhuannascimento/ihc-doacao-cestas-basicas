@@ -13,6 +13,7 @@ export default createVuetify({
           primary: '#F2E8C6', 
           secondary: '#DAD4B5', 
           background: '#800000',
+          fadedbackground: '#805656',
           surface: '#982B1C',
           error: '#FF5252',
           info: '#2196F3', 
