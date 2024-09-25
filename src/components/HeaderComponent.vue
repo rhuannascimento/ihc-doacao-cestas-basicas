@@ -16,7 +16,7 @@
                 </div>
             </v-btn>
             <v-img :width="40" cover class="cursor-pointer" :style="{ borderRadius: '50%', boxShadow: '1px 1px 1px #000' }"
-                src="https://raw.githubusercontent.com/rhuannascimento/ihc-doacao-cestas-basicas/refs/heads/main/src/assets/images/eu_mesmo_lindao.jpg">
+                src="https://raw.githubusercontent.com/rhuannascimento/ihc-doacao-cestas-basicas/refs/heads/main/src/assets/images/user_iamge.webp">
                 <v-menu activator="parent">
                     <v-list>
                         <v-list-item @click="logOut()" prepend-icon="mdi mdi-logout">
