@@ -9,10 +9,10 @@
             </div>
         </template>
         <div class="d-flex align-center ga-2 px-4">
-            <v-btn v-if="role == 'admin'" @click="this.$router.push('create-family')" :style="{backgroundColor: '#F2E8C6'}" elevation="1" size="small" max-width="1px">
+            <v-btn v-if="role == 'admin'" @click="toggleCreateFamilyView" :style="{backgroundColor: '#F2E8C6'}" elevation="1" size="small" max-width="1px">
                 <div :style="{position: 'relative'}">
-                    <v-icon size="25" color="background">mdi mdi-human-male-male-child</v-icon>
-                    <v-icon size="10" color="background" :style="{position: 'absolute', right: '-2px', bottom: '0px', backgroundColor: '#F2E8C6', borderRadius: '50%'}">mdi mdi-plus</v-icon>
+                    <v-icon size="25" color="background">{{ this.$route.path == '/create-family' ? 'mdi mdi-arrow-left':'mdi mdi-human-male-male-child'}}</v-icon>
+                    <v-icon v-if="this.$route.path != '/create-family'"size="10" color="background" :style="{position: 'absolute', right: '-2px', bottom: '0px', backgroundColor: '#F2E8C6', borderRadius: '50%'}">mdi mdi-plus</v-icon>
                 </div>
             </v-btn>
             <v-img :width="40" cover class="cursor-pointer" :style="{ borderRadius: '50%', boxShadow: '1px 1px 1px #000' }"
@@ -41,6 +41,13 @@ export default {
         this.role = localStorage.getItem('role');
     },
     methods: {
+        toggleCreateFamilyView(){
+            if(this.$route.path != '/create-family'){
+                this.$router.push('create-family')  
+            }else{
+                this.$router.push('family')  
+            }
+        },
         logOut(){
             localStorage.clear();
             this.$router.push('/login')

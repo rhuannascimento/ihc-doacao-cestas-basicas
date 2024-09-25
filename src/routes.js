@@ -3,6 +3,8 @@ import LoginView from '@/views/LoginView.vue'
 import SingupView from '@/views/SingupView.vue'
 import HomeView from '@/views/HomeView.vue'
 import CreateFamilyView from '@/views/CreateFamilyView.vue'
+import FamilyView from '@/views/FamilyView.vue'
+
 
 const routes = [
   { 
@@ -20,6 +22,10 @@ const routes = [
       {
         path: '/create-family', 
         component: CreateFamilyView,
+      },
+      {
+        path: '/family', 
+        component: FamilyView,
       }
     ]
   }
@@ -33,7 +39,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
-  const adminPaths = ['/create-family'];
+  const adminPaths = ['/create-family', '/family'];
   if (!token && to.path != '/login' && to.path != '/singup') {
     next('/login')
   } else if (token && to.path == '/login') {
