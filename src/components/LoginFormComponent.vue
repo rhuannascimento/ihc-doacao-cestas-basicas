@@ -76,6 +76,8 @@ export default {
                 this.loginAdvertisement = true;
                 this.loginAdvertisementText = 'Erro de login: ' + error.message;
                 this.loginAdvertisementColor = "warning";
+                this.loginLoading = false;
+                return
             }
 
             try{
