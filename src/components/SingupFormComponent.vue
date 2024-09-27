@@ -20,6 +20,9 @@
                 :timeout="4000" :color="singupAdvertisementColor" close-on-content-click timer>{{
                     singupAdvertisementText }}</v-snackbar>
             <v-btn :disabled="!isFormValid" :loading="singupLoading" class="mt-2" type="submit" block>Registrar</v-btn>
+            <RouterLink to="/login" class="text-center">
+                <span class="text-caption text-background">Entrar com uma conta existente!</span>
+            </RouterLink>
         </v-form>
     </v-card>
 </template>
