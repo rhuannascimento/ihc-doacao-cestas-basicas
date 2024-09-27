@@ -37,14 +37,14 @@ export default {
                     admin: true
                 },
                 {
-                    icon: 'mdi mdi-human-male-male-child',
-                    label: 'Famílias',
+                    icon: 'mdi mdi-hand-coin',
+                    label: 'Doações em progresso',
                     path: '/family',
                     admin: false
                 },
                 {
-                    icon: 'mdi mdi-basket',
-                    label: 'Cestas',
+                    icon: 'mdi mdi-clipboard-text-clock',
+                    label: 'Historico de doações',
                     path: '/basket',
                     admin: false
                 }
