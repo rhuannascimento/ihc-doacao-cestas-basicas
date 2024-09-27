@@ -7,6 +7,7 @@ import FamilyView from '@/views/FamilyView.vue'
 import DonateProgressView from '@/views/DonateProgressView.vue'
 import CreateDonateView from './views/CreateDonateView.vue'
 import DonateHistoryView from './views/DonateHistoryView.vue'
+import BasketView from './views/BasketView.vue'
 
 const routes = [
   { 
@@ -40,6 +41,10 @@ const routes = [
       {
         path: '/donate-history', 
         component: DonateHistoryView,
+      },
+      {
+        path: '/basket', 
+        component: BasketView,
       }
     ]
   }

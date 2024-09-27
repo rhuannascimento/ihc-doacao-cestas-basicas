@@ -44,6 +44,10 @@ export default {
         historyView: {
             type: Boolean,
             default: false,
+        },
+        adminView: {
+            type: Boolean,
+            default: false,
         }
     },
     data() {
@@ -69,7 +73,9 @@ export default {
 
                 let q;
 
-                if(this.historyView){
+                if(this.adminView){
+                    q = query(collection(db, "donates"));
+                }else if(this.historyView){
                     q = query(collection(db, "donates"), where("userId", "==", userId), where("status", "==", "Entregue"));
                 }else{
                     q = query(collection(db, "donates"), where("userId", "==", userId), where("status", "!=", "Entregue"));

@@ -60,6 +60,16 @@ export default {
         }
         this.path = this.$route.path;
     },
+    computed:{
+        route(){
+            return this.$route;
+        }
+    },
+    watch: {
+        route(){
+            this.path = this.$route.path;
+        }
+    },
     methods:{
         goToPath(path){
             this.path = path;
