@@ -2,6 +2,9 @@
     <div v-if="loadingFamilys" class="d-flex align-center justify-center" :style="{ width: '100%', height: '80vh' }">
         <v-progress-circular indeterminate :size="44" :width="5"></v-progress-circular>
     </div>
+    <div v-else-if="donates.length == 0" class="d-flex align-center justify-center" :style="{ width: '100%', height: '80vh' }">
+        <span>Não foi encontrado nemnhum item</span>
+    </div>
     <div v-else class="d-flex flex-column ga-2">
         <v-card v-for="family in familys" :key="family" color="secondary" class="d-flex align-center justify-space-evenly pa-2">
             <div class="d-flex flex-column">

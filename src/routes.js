@@ -6,6 +6,7 @@ import CreateFamilyView from '@/views/CreateFamilyView.vue'
 import FamilyView from '@/views/FamilyView.vue'
 import DonateProgressView from '@/views/DonateProgressView.vue'
 import CreateDonateView from './views/CreateDonateView.vue'
+import DonateHistoryView from './views/DonateHistoryView.vue'
 
 const routes = [
   { 
@@ -35,6 +36,10 @@ const routes = [
       {
         path: '/donate-progress', 
         component: DonateProgressView,
+      },
+      {
+        path: '/donate-history', 
+        component: DonateHistoryView,
       }
     ]
   }

@@ -45,7 +45,7 @@ export default {
                 {
                     icon: 'mdi mdi-clipboard-text-clock',
                     label: 'Historico de doações',
-                    path: '/basket',
+                    path: '/donate-history',
                     admin: false
                 }
             ]

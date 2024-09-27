@@ -2,6 +2,9 @@
     <div v-if="loadingDonates" class="d-flex align-center justify-center" :style="{ width: '100%', height: '80vh' }">
         <v-progress-circular indeterminate :size="44" :width="5"></v-progress-circular>
     </div>
+    <div v-else-if="donates.length == 0" class="d-flex align-center justify-center" :style="{ width: '100%', height: '80vh' }">
+        <span>Não foi encontrado nemnhum item</span>
+    </div>
     <div v-else class="d-flex flex-column ga-2">
         <v-card v-for="donate in donates" :key="donate" color="secondary"
             class="d-flex align-center justify-space-evenly pa-2">
@@ -37,6 +40,12 @@
 import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 const db = getFirestore();
 export default {
+    props: {
+        historyView: {
+            type: Boolean,
+            default: false,
+        }
+    },
     data() {
         return {
             donates: [],
@@ -57,7 +66,14 @@ export default {
             this.loadingDonates = true;
             try {
                 let userId = localStorage.getItem('userId');
-                const q = query(collection(db, "donates"), where("userId", "==", userId));
+
+                let q;
+
+                if(this.historyView){
+                    q = query(collection(db, "donates"), where("userId", "==", userId), where("status", "==", "Entregue"));
+                }else{
+                    q = query(collection(db, "donates"), where("userId", "==", userId), where("status", "!=", "Entregue"));
+                }
 
                 const querySnapshot = await getDocs(q);
                 this.donates = [];
