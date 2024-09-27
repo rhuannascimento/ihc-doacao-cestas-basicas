@@ -4,7 +4,8 @@ import SingupView from '@/views/SingupView.vue'
 import HomeView from '@/views/HomeView.vue'
 import CreateFamilyView from '@/views/CreateFamilyView.vue'
 import FamilyView from '@/views/FamilyView.vue'
-
+import DonateProgressView from '@/views/DonateProgressView.vue'
+import CreateDonateView from './views/CreateDonateView.vue'
 
 const routes = [
   { 
@@ -26,6 +27,14 @@ const routes = [
       {
         path: '/family', 
         component: FamilyView,
+      },
+      {
+        path: '/donate-basket', 
+        component: CreateDonateView,
+      },
+      {
+        path: '/donate-progress', 
+        component: DonateProgressView,
       }
     ]
   }

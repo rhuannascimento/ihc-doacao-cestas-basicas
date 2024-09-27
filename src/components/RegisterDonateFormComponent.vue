@@ -1,14 +1,10 @@
 <template>
-    <v-form @submit.prevent="registerFamily" v-model="isFormValid" class="d-flex flex-column ga-2">
-        <v-text-field v-model="name" :rules="[formRules.required]" :disabled="registerLoading" bg-color="secondary"
-            hide-details="auto" variant="solo" label="Nome" placeholder="Nome"></v-text-field>
-        <v-text-field v-model="quantityOfPeople" type="number" :rules="[formRules.required]" :disabled="registerLoading"
-            bg-color="secondary" hide-details="auto" variant="solo" label="Qtd. de pessoas"
-            placeholder="Qtd. de pessoas"></v-text-field>
-        <v-text-field v-model="address" :rules="[formRules.required]" :disabled="registerLoading" bg-color="secondary"
-            hide-details="auto" variant="solo" label="Endereço" placeholder="Endereço"></v-text-field>
-        <v-textarea v-model="observation" :disabled="registerLoading" bg-color="secondary" hide-details="auto"
-            variant="solo" label="Observação" placeholder="Observação"></v-textarea>
+    <v-form @submit.prevent="registerDonate" v-model="isFormValid" class="d-flex flex-column ga-2">
+        <v-autocomplete v-model="size" :items="sizes" :rules="[formRules.required]" :disabled="registerLoading" bg-color="secondary"
+            hide-details="auto" variant="solo" label="Tamanho da sexta" placeholder="Tamanho da sexta"></v-autocomplete>
+        <v-autocomplete v-model="paymentMethod" :items="methods" :rules="[formRules.required]" :disabled="registerLoading"
+            bg-color="secondary" hide-details="auto" variant="solo" label="Método de pagamento"
+            placeholder="Método de pagamento"></v-autocomplete>
         <v-snackbar location-strategy="connected" target="parent" :offset="25" v-model="registerAdvertisement"
             :timeout="4000" :color="registerAdvertisementColor" close-on-content-click timer>{{
                 registerAdvertisementText }}</v-snackbar>
@@ -23,10 +19,10 @@ const db = getFirestore();
 export default {
     data() {
         return {
-            name: "",
-            quantityOfPeople: 0,
-            address: "",
-            observation: "",
+            sizes: ['Pequeno', 'Médio', 'Grande'],
+            methods: ['Pix', 'Cartão de crédito'],
+            size: null,
+            paymentMethod: null,
             registerAdvertisementText: "",
             registerAdvertisementColor: "",
             registerAdvertisement: false,
@@ -39,22 +35,21 @@ export default {
     },
     methods: {
         clearFiled(){
-            this.name = "";
-            this.quantityOfPeople = 0;
-            this.address = "";
-            this.observation = "";
+            this.size = null;
+            this.paymentMethod = null;
         },
-        async registerFamily() {
+        async registerDonate() {
             this.registerLoading = true;
-            let familyData = {
-                name: this.name,
-                quantityOfPeople: this.quantityOfPeople,
-                address: this.address,
-                observation: this.observation,
-                lastDonation: '--'
+                let userId = localStorage.getItem('userId');
+            let donateData = {
+                size: this.size,
+                status: "Procurando fámilia",
+                date: (new Date()).toISOString(),
+                deliveryDate: '',
+                userId: userId
             }
             try {
-                const docRef = await addDoc(collection(db, "family"), familyData);
+                const docRef = await addDoc(collection(db, "donates"), donateData);
                 this.registerAdvertisement = true;
                 this.registerAdvertisementText = "Sucesso!";
                 this.registerAdvertisementColor = "success";

@@ -71,7 +71,8 @@ export default {
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
                 user = userCredential.user;
-                localStorage.setItem('token', user.aaccessToken)
+                localStorage.setItem('userId', user.uid);
+                localStorage.setItem('token', user.accessToken);
             } catch (error) {
                 this.loginAdvertisement = true;
                 this.loginAdvertisementText = 'Erro de login: ' + error.message;
@@ -100,7 +101,7 @@ export default {
             if(localStorage.getItem('role')){
                 this.$router.push('/family'); 
             }else{
-                this.$router.push('/home'); 
+                this.$router.push('/donate-progress'); 
             }
         }
     }

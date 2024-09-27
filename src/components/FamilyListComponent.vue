@@ -14,7 +14,7 @@
             <v-divider vertical></v-divider>
             <div class="d-flex flex-column">
                 <span class="text-caption">Doação anterior</span>
-                <span class="text-caption font-weight-bold">{{ family.lastDonation ?? '--' }}</span>
+                <span class="text-caption font-weight-bold">{{ family.lastDonation }}</span>
                 <v-divider></v-divider>
                 <span class="text-caption">Observação</span>
                 <span class="text-caption font-weight-bold">{{ family.observation }}</span>

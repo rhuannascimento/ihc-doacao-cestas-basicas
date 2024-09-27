@@ -15,6 +15,9 @@
                     <v-icon v-if="this.$route.path != '/create-family'"size="10" color="background" :style="{position: 'absolute', right: '-2px', bottom: '0px', backgroundColor: '#F2E8C6', borderRadius: '50%'}">mdi mdi-plus</v-icon>
                 </div>
             </v-btn>
+            <v-btn v-else @click="toggleDonateBasket" :style="{backgroundColor: '#F2E8C6'}" elevation="1" size="small" max-width="1px">
+                    <v-icon size="25" color="background">{{ this.$route.path == '/donate-basket' ? 'mdi mdi-arrow-left':'mdi mdi-basket-plus-outline'}}</v-icon>
+            </v-btn>
             <v-img :width="40" cover class="cursor-pointer" :style="{ borderRadius: '50%', boxShadow: '1px 1px 1px #000' }"
                 src="https://raw.githubusercontent.com/rhuannascimento/ihc-doacao-cestas-basicas/refs/heads/main/src/assets/images/user_iamge.webp">
                 <v-menu activator="parent">
@@ -43,9 +46,16 @@ export default {
     methods: {
         toggleCreateFamilyView(){
             if(this.$route.path != '/create-family'){
-                this.$router.push('create-family')  
+                this.$router.push('/create-family')  
             }else{
-                this.$router.push('family')  
+                this.$router.push('/family')  
+            }
+        },
+        toggleDonateBasket(){
+            if(this.$route.path != '/donate-basket'){
+                this.$router.push('/donate-basket')  
+            }else{
+                this.$router.push('/donate-progress')  
             }
         },
         logOut(){
