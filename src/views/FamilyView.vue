@@ -1,15 +1,16 @@
 <template>
-    <div>
-        Ola mundo
+    <div class="pa-2">
+        <FamilyListComponent />
     </div>
 </template>
 
 <script>
-    export default {
-        
+import FamilyListComponent from '@/components/FamilyListComponent.vue';
+export default {
+    components:{
+        FamilyListComponent
     }
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style scoped></style>

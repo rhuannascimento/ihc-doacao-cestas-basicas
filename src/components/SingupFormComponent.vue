@@ -3,11 +3,11 @@
         <v-form @submit.prevent="trySingup" v-model="isFormValid" class="d-flex flex-column ga-2">
             <v-text-field v-model="email" :rules="[formRules.required, formRules.emailRule]" :disabled="singupLoading"
                 bg-color="secondary" hide-details="auto" variant="solo" label="E-mail"
-                placeholder="E-mail"></v-text-field>
+                placeholder="E-mail" flat></v-text-field>
             <v-text-field v-model="password"
                 :rules="[formRules.required, formRules.minLengthRule, formRules.specialCharRule]"
                 :type="passwordFieldType" :disabled="singupLoading" bg-color="secondary" hide-details="auto"
-                variant="solo" label="Senha" placeholder="Senha">
+                variant="solo" label="Senha" placeholder="Senha" flat>
                 <template v-slot:append-inner>
                     <v-btn variant="text" size="sm">
                         <v-icon color="primary" size="25" @click="togglePasswordVisibility"
@@ -19,7 +19,7 @@
             <v-snackbar location-strategy="connected" target="parent" :offset="25" v-model="singupAdvertisement"
                 :timeout="4000" :color="singupAdvertisementColor" close-on-content-click timer>{{
                     singupAdvertisementText }}</v-snackbar>
-            <v-btn :disabled="!isFormValid" :loading="singupLoading" class="mt-2" type="submit" block>Registrar</v-btn>
+            <v-btn :disabled="!isFormValid" :loading="singupLoading" class="mt-2" type="submit" block flat>Registrar</v-btn>
             <RouterLink to="/login" class="text-center">
                 <span class="text-caption text-background">Entrar com uma conta existente!</span>
             </RouterLink>

@@ -2,12 +2,12 @@
     <v-card color="primary" class="pa-4" width="285" height="fit-content">
         <v-form @submit.prevent="tryLogin" v-model="isFormValid" class="d-flex flex-column ga-2">
             <v-text-field v-model="email" :rules="[formRules.required, formRules.emailRule]" :disabled="loginLoading"
-                bg-color="secondary" hide-details="auto" variant="solo" label="E-mail"
+                bg-color="secondary" hide-details="auto" variant="solo" label="E-mail" flat
                 placeholder="E-mail"></v-text-field>
             <v-text-field v-model="password"
                 :rules="[formRules.required, formRules.minLengthRule, formRules.specialCharRule]"
                 :type="passwordFieldType" :disabled="loginLoading" bg-color="secondary" hide-details="auto"
-                variant="solo" label="Senha" placeholder="Senha">
+                variant="solo" label="Senha" placeholder="Senha" flat>
                 <template v-slot:append-inner>
                     <v-btn variant="text" size="sm">
                         <v-icon color="primary" size="25" @click="togglePasswordVisibility"
@@ -19,7 +19,7 @@
             <v-snackbar location-strategy="connected" target="parent" :offset="25" v-model="loginAdvertisement"
                 :timeout="4000" :color="loginAdvertisementColor" close-on-content-click timer>{{ loginAdvertisementText
                 }}</v-snackbar>
-            <v-btn :disabled="!isFormValid" :loading="loginLoading" class="mt-2" type="submit" block>Entrar</v-btn>
+            <v-btn :disabled="!isFormValid" :loading="loginLoading" class="mt-2" type="submit" block flat>Entrar</v-btn>
             <RouterLink to="/singup" class="text-center">
                 <span class="text-caption text-background">Me registrar</span>
             </RouterLink>
