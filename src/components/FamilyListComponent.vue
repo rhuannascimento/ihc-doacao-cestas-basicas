@@ -4,7 +4,7 @@
     </div>
     <div v-else-if="familys.length == 0" class="d-flex align-center justify-center"
         :style="{ width: '100%', height: '80vh' }">
-        <span>Não foi encontrado nemnhum item</span>
+        <span>Não foi encontrado nenhum item</span>
     </div>
     <div v-else class="d-flex flex-column ga-2">
         <v-card v-for="family in familys" :key="family" color="secondary"

@@ -1,7 +1,7 @@
 <template>
     <v-form @submit.prevent="registerDonate" v-model="isFormValid" class="d-flex flex-column ga-2">
         <v-autocomplete v-model="size" :items="sizes" :rules="[formRules.required]" :disabled="registerLoading" bg-color="secondary"
-            hide-details="auto" variant="solo" label="Tamanho da sexta" placeholder="Tamanho da sexta"></v-autocomplete>
+            hide-details="auto" variant="solo" label="Tamanho da cesta" placeholder="Tamanho da cesta"></v-autocomplete>
         <v-autocomplete v-model="paymentMethod" :items="methods" :rules="[formRules.required]" :disabled="registerLoading"
             bg-color="secondary" hide-details="auto" variant="solo" label="Método de pagamento"
             placeholder="Método de pagamento"></v-autocomplete>
