@@ -25,7 +25,7 @@ O sistema já está configurado com dois usuários para teste:
 - **Senha:** easydonation%%2024
 
 ## Como Acessar
-1. Abra o navegador e acesse o link hospedado no Vercel: https://ihc-doacao-cestas-basicas.vercel.app/login
+1. Abra o navegador e acesse o link hospedado no Vercel: https://ihc-doacao-cestas-basicas.vercel.app
 2. Use as credenciais acima para realizar o login.
 
 
