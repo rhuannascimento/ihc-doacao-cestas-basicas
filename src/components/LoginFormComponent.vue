@@ -20,7 +20,7 @@
                 :timeout="4000" :color="loginAdvertisementColor" close-on-content-click timer>{{ loginAdvertisementText
                 }}</v-snackbar>
             <v-btn :disabled="!isFormValid" :loading="loginLoading" class="mt-2" type="submit" block flat>Entrar</v-btn>
-            <RouterLink to="/singup" class="text-center">
+            <RouterLink to="/signup" class="text-center">
                 <span class="text-caption text-background">Me registrar</span>
             </RouterLink>
         </v-form>

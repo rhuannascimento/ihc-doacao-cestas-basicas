@@ -9,44 +9,72 @@ import CreateDonateView from './views/CreateDonateView.vue'
 import DonateHistoryView from './views/DonateHistoryView.vue'
 import BasketView from './views/BasketView.vue'
 
-const routes = [
+const publicRoutes = [
   { 
     path: '/login', 
+    name: 'login',
     component: LoginView,
+    meta: { requiresAuth: false }
   },
   { 
-    path: '/singup', 
+    path: '/signup', 
+    name: 'signup',
     component: SingupView,
+    meta: { requiresAuth: false }
+  }
+]
+
+const protectedRoutes = [
+  {
+    path: '/create-family', 
+    name: 'createFamily',
+    component: CreateFamilyView,
+    meta: { requiresAdmin: true }
   },
+  {
+    path: '/family', 
+    name: 'family',
+    component: FamilyView,
+    meta: { requiresAdmin: true }
+  },
+  {
+    path: '/donate-basket', 
+    name: 'donateBasket',
+    component: CreateDonateView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/donate-progress', 
+    name: 'donateProgress',
+    component: DonateProgressView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/donate-history', 
+    name: 'donateHistory',
+    component: DonateHistoryView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/basket', 
+    name: 'basket',
+    component: BasketView,
+    meta: { requiresAuth: true }
+  }
+]
+
+const routes = [
+  ...publicRoutes,
   { 
     path: '/home', 
+    name: 'home',
     component: HomeView,
-    children: [
-      {
-        path: '/create-family', 
-        component: CreateFamilyView,
-      },
-      {
-        path: '/family', 
-        component: FamilyView,
-      },
-      {
-        path: '/donate-basket', 
-        component: CreateDonateView,
-      },
-      {
-        path: '/donate-progress', 
-        component: DonateProgressView,
-      },
-      {
-        path: '/donate-history', 
-        component: DonateHistoryView,
-      },
-      {
-        path: '/basket', 
-        component: BasketView,
-      }
-    ]
+    meta: { requiresAuth: true },
+    children: protectedRoutes
+  },
+  {
+    path: '/',
+    redirect: '/home'
   }
 ]
 
@@ -58,26 +86,23 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
-  const adminPaths = ['/create-family', '/family'];
-  if (!token && to.path != '/login' && to.path != '/singup') {
-    next('/login')
-  } else if (token && to.path == '/login') {
-    if(role == 'admin'){
-      next('/family')
-    }else{
-      next('/home')
-    }
-  }else {
-    if(adminPaths.includes(to.path)){
-        if(role == 'admin'){
-          next()
-        }else{
-          next('/home')
-        }
-    }else{
-      next()
-    }
+  const isAdmin = role === 'admin';
+
+ 
+  if (to.meta.requiresAuth && !token) {
+    return next('/login');
   }
+
+ 
+  if (token && !to.meta.requiresAuth) {
+    return next(isAdmin ? '/family' : '/home');
+  }
+
+  if (to.meta.requiresAdmin && !isAdmin) {
+    return next('/home');
+  }
+
+  next();
 })
 
 export default router
